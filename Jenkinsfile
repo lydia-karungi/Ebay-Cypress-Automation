@@ -1,37 +1,38 @@
-pipeline{
-    agent any
+pipeline {
+   agent any
 
-    environment{
-        CHROME_BIN = '/bin/google-chrome'
-    }
+   //tools {nodejs "Node12"}
 
-    stages{
-        stage('Dependancies'){
-            steps{
-                sh 'npm i'
-            }
-        
-        stage('e2e tests'){
-            Parallel{
-                stage('Test 1'){
-                    steps{
-                        sh 'npx cypress open:ci'
-                    }
-                }
+   environment {
+       CHROME_BIN = '/bin/google-chrome'
+      
+   }
 
-                stage('Test 2'){
-                    steps{
-                        sh 'npx cypress2 open:ci'
-                    }
-                }
-            }
-        stage('deploy'){
-            steps{
-                echo 'Deploying'
-            }
-        }
-        }
+   stages {
+       stage('Dependencies') {
+           steps {
+               sh 'npm i'
+           }
+       }
+       stage('e2e Tests') {
+         Parallel{
+             stage('Test 1') {
+                  steps {
+                sh 'npx cypress open:ci'
+                  }
+               }
+             
+             stage('Test 2') {
+                  steps {
+                sh 'npx cypress open:ci'
+                  }
+               }
 
-        }
-    }
+       }
+       stage('Deploy') {
+           steps {
+               echo 'Deploying....'
+           }
+       }
+   }
 }
