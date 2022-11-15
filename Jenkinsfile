@@ -21,7 +21,7 @@ pipeline {
                     }
                 }
                 
-                stage('Execute this together') {s
+                stage('Execute this together') {
                     stages {
                         stage('Another_One') {
                             steps {
