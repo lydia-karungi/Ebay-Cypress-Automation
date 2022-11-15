@@ -1,10 +1,37 @@
 pipeline{
     agent any
+
+    environment{
+        CHROME_BIN = '/bin/google-chrome'
+    }
+
     stages{
-        stage('stage 1'){
+        stage('Dependancies'){
             steps{
-                echo'Welcome to cypress Automation'
+                sh 'npm i'
             }
+        
+        stage(e2e tests){
+            Parallel{
+                stage('Test 1'){
+                    steps{
+                        sh 'npx cypress open:ci'
+                    }
+                }
+
+                stage('Test 2'){
+                    steps{
+                        sh 'npx cypress2 open:ci'
+                    }
+                }
+            }
+        stage('deploy'){
+            steps{
+                echo 'Deploying'
+            }
+        }
+        }
+
         }
     }
 }
