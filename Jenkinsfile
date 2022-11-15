@@ -11,7 +11,7 @@ pipeline{
                 sh 'npm i'
             }
         
-        stage(e2e tests){
+        stage('e2e tests'){
             Parallel{
                 stage('Test 1'){
                     steps{
